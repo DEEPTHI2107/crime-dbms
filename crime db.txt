@@ -1,0 +1,81 @@
+CREATE TABLE `admin` (
+  `admin_id` varchar(8) NOT NULL,
+  `name` varchar(36) NOT NULL,
+  `password` varchar(36) NOT NULL,
+  `phone` varchar(14) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `complaint` (
+  `c_id` varchar(10) NOT NULL,
+  `category` varchar(36) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `details` varchar(500) NOT NULL,
+  `datetime` date NOT NULL,
+  `suspect` varchar(100) NOT NULL,
+  `area` varchar(50) NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'NEW',
+  `priority` varchar(20) NOT NULL DEFAULT 'MEDIUM',
+  `bureau_notes` varchar(400) NOT NULL,
+  PRIMARY KEY (`c_id`),
+  KEY `status` (`status`),
+  CONSTRAINT `complaint_ibfk_1` FOREIGN KEY (`status`) REFERENCES `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+CREATE TABLE `police` (
+  `police_id` varchar(8) NOT NULL,
+  `name` varchar(36) NOT NULL,
+  `password` varchar(36) NOT NULL,
+  `phone` varchar(14) NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `specialization` varchar(36) NOT NULL,
+  PRIMARY KEY (`police_id`),
+  KEY `specialization` (`specialization`),
+  CONSTRAINT `police_ibfk_1` FOREIGN KEY (`specialization`) REFERENCES `specializations` (`specialization`),
+  CONSTRAINT `police_ibfk_2` FOREIGN KEY (`specialization`) REFERENCES `specializations` (`specialization`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+
+CREATE TABLE `specializations` (
+  `specialization` varchar(40) NOT NULL,
+  `s_desc` varchar(200) NOT NULL,
+  `s_location` varchar(40) NOT NULL,
+  PRIMARY KEY (`specialization`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+
+CREATE TABLE `status` (
+  `status` varchar(20) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+CREATE TABLE `updated_user` (
+  `username` varchar(36) NOT NULL,
+  `password` varchar(36) NOT NULL,
+  `name` varchar(36) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `pincode` varchar(8) NOT NULL,
+  `email` varchar(36) NOT NULL,
+  `phone` varchar(14) DEFAULT NULL,
+  `gender` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+CREATE TABLE `user` (
+  `username` varchar(36) NOT NULL,
+  `password` varchar(36) NOT NULL,
+  `name` varchar(36) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `pincode` varchar(8) NOT NULL,
+  `email` varchar(36) NOT NULL,
+  `phone` varchar(14) DEFAULT NULL,
+  `gender` varchar(10) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
